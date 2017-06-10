@@ -184,7 +184,7 @@ var resources = {
             "Analysis Process": "Analysis Process",
             "synFactorVizTitle": "Factor Composite Q-sorts",
             "Synthetic Sort for": "",
-            "downloadImage": " - Download image",
+            "downloadImage": " - Download image as SVG",
             "Download Scree Plot": "Download Scree Plot",
             "Download Rotation Chart": "Download Rotation Chart",
             "Composite Q-Sort Display Options": "Respondent Q-sort Display Options",
@@ -302,7 +302,8 @@ var resources = {
             "You seem to be using": "You are using ",
             "Please update your browser before using Ken-Q Analysis": "Please update your browser before using Ken-Q Analysis",
             "This browser is not supported by Ken-Q Analysis <br> Please use one of the browsers listed above": "This browser is not supported by Ken-Q Analysis <br> Please use one of the browsers listed above",
-            "Ready to begin analysis": " "
+            "Ready to begin analysis": " ",
+            "Confirm Download": "Confirm Download"
         }
     },
     "ja": {
@@ -600,7 +601,8 @@ var resources = {
             "You seem to be using": "You are using  ",
             "Please update your browser before using Ken-Q Analysis": "You should update your browser before using Ken-Q Analysis",
             "This browser is not supported by Ken-Q Analysis <br> Please use one of the browsers listed above": "This browser is not supported by Ken-Q Analysis <br> Please use one of the browsers listed above",
-            "Ready to begin analysis": "-- ready to begin analysis"
+            "Ready to begin analysis": "-- ready to begin analysis",
+            "Confirm Download": "Confirm Download"
         }
     }
 };

@@ -1213,6 +1213,7 @@ div.d3Tooltip {
 
 .svgDownloadButton {
     margin-bottom: 100px;
+    margin-right: 30px;
 }
 
 #section4>input {
@@ -1567,6 +1568,26 @@ div.helpImageDiv a {
 }
 
 #deleteLocalDataModal p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    display: inline-block;
+}
+
+#downloadConfirmModal h2 {
+    font-size: 25px !important;
+    letter-spacing: .1rem !important;
+    text-align: left !important;
+}
+
+#downloadConfirmModal .iziModal-header {
+    height: 35px;
+}
+
+#downloadConfirmModal p {
     margin-top: 10px;
     text-align: center;
     font-size: 20px;
@@ -2040,7 +2061,7 @@ input[type=color] {
     padding-right: 3px;
     padding-bottom: 5px;
     margin-left: 20px;
-    font-size: 30px;
+    font-size: 50px;
     font-style: italic;
     color: #38acec;
 }
@@ -2150,4 +2171,14 @@ div.helpImageDiv a {
     text-align: center;
     font-size: 22px;
     color: gray;
+}
+
+input[type="button"].steelblueHover:hover {
+    background: none repeat scroll 0 0 #88A0B9 !important;
+    color: #FFFFFF !important;
+}
+
+.steelblueHover:hover {
+    background: none repeat scroll 0 0 #88A0B9 !important;
+    color: #FFFFFF !important;
 }

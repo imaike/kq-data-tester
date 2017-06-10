@@ -1047,9 +1047,6 @@
             </div>
             <div id="selectFactorsForOutputDiv"></div>
             <br>
-
-
-
             <br>
             <br>
 
@@ -1187,33 +1184,23 @@
                             />
                         </div>
                         <div class="two columns vertical factorVizOptions">
-                            <input type="button" class="blackHover u-pull-right rightMargin vertical" name="updateDisplay" id="downloadAllImagesButton"
-                                data-i18n="[value]DOWNLOAD ALL Q-SORTS" />
+                            <input type="button" class="blackHover u-pull-right rightMargin vertical" name="downloadAll" id="downloadAllImagesButton"
+                                data-i18n="[value]DOWNLOAD ALL Q-SORT IMAGES" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <div id="correlationSpinnerText" class="singleLine">Calculating...</div>
                 <input type="button" class="deleteHover u-pull-right rightMargin" name="clearStorage" autocomplete="off" id="clearStorageButton"
                     data-i18n="[value]Permanently delete all locally-stored data" />
             </div>
-            <br>
-            <br>
             <br>
             <br>
             <div id="synFactorVizTitle"></div>
             <div id="synFactorVizDiv"></div>
             <br>
             <br>
-            <div id="factorCorrelationTableTitle"></div>
-            <div id="factorCorrelationTableDiv">
-            </div>
-
-            <div id="factorTables"></div>
-
-            <div class="spacer"></div>
-
-
         </div>
         <!-- end of section 7 nav div -->
 
@@ -1260,90 +1247,27 @@
         <div class="iziModal inputSuccess" id="addSortModal">
         </div>
 
-        <!-- Judgemental Rotation Options Panel  -->
-        <div class="iziModal kenqModal" id="rotationChartOptionsModal">
-            <div>
-                <div id="rotationChartOptionsModalADiv">
-                    <span class="singleLine" data-i18n="Factor Color A"></span>
-                    <input type="color" name="significanceColorAPrep" class="vizInput4 color-input vertical" data-huebee id="factorACustomColorInputBox"
-                        value="#7fffd4" autocomplete="off" style="display: inline-block; left:300px;" />
-                </div>
-
-                <div id="rotationChartOptionsModalBDiv">
-                    <span class="singleLine" data-i18n="Factor Color B"></span>
-                    <input type="color" name="significanceColorBPrep" class="vizInput4 color-input vertical" data-huebee id="factorBCustomColorInputBox"
-                        value="#FFE4C4" autocomplete="off" style="display: inline-block; left:300px;" />
-                </div>
-
-                <div id="removeCircleHighlightDiv">
-                    <p class="" data-i18n="Remove circle highlighting"></p>
-                    <label for="removeCircleHighlightYes" class="radioHighlight2 vertical vizButtonYes" data-i18n="YES"></label>
-                    <input id="removeCircleHighlightYes" name="legend" type="radio" autocomplete="off" value="Yes" checked />
-                    <label for="removeCircleHighlightNo" class="radioHighlight2 vertical vizButtonNo" data-i18n="NO"></label>
-                    <input id="removeCircleHighlightNo" name="legend" type="radio" autocomplete="off" value="No" />
-                </div>
-
-                <div id="removeCirclesDiv">
-                    <p class="" data-i18n="Remove Circles"></p>
-                    <label for="removeCircleYes" class="radioHighlight2 vertical vizButtonYes" data-i18n="YES"></label>
-                    <input id="removeCircleYes" name="legend" type="radio" autocomplete="off" value="Yes" checked />
-                    <label for="removeCircleNo" class="radioHighlight2 vertical vizButtonNo" data-i18n="NO"></label>
-                    <input id="removeCircleNo" name="legend" type="radio" autocomplete="off" value="No" />
-                </div>
-
-                <div id="changeFontSizeDiv">
-                    <p class="" data-i18n="Adjust font size?"></p>
-                    <label for="changeFontSizeYes" class="radioHighlight2 vertical vizButtonYes" data-i18n="YES"></label>
-                    <input id="changeFontSizeYes" name="legend" type="radio" autocomplete="off" value="Yes" checked />
-                    <label for="changeFontSizeNo" class="radioHighlight2 vertical vizButtonNo" data-i18n="NO"></label>
-                    <input id="changeFontSizeNo" name="legend" type="radio" autocomplete="off" value="No" />
-                    <input type="text" name="chartFontSizeInput" autocomplete="off" id="chartFontSizeInputBox" class="vizInput" placeholder="9">
-                </div>
-
-
-                <div id="chartIdentifierDiv">
-                    <p class="" data-i18n="Chart identifier"></p>
-                    <label for="chartIdentifierNumberYes" class="radioHighlight2  vizButtonYes" data-i18n="Number"></label>
-                    <input id="chartIdentifierNumberYes" name="legend" type="radio" autocomplete="off" value="Yes" checked />
-                    <label for="chartIdentifierNumberNo" class="radioHighlight2 vertical vizButtonNo" data-i18n="Respondent"></label>
-                    <input id="chartIdentifierNumberNo" name="legend" type="radio" autocomplete="off" value="No" />
-                </div>
-
-            </div>
-            <br>
-            <div>
-                <button class="button-cancel blackHover u-pull-left" data-i18n="Close"></button>
-                <button class="u-pull-right blackHover applyChanges u-right-margin" data-i18n="Apply"></button>
-            </div>
-        </div>
-
-        <!-- Invert Factors  -->
-        <div class="iziModal" id="invertModal">
-            <div>
-                <p data-i18n="Please Input a Factor Number"></p>
-                <input type="number" class="u-pull-full input-inside" max="8" min="1" name="invertFactorInput">
-            </div>
-            <br>
-            <div>
-                <button class="button-submit blackHover u-pull-right" data-i18n="Submit"></button>
-            </div>
-        </div>
-
         <!-- Function Disabled after Bipolar Factor Split  -->
         <div class="iziModal" id="functionDisabledModal">
             <p data-i18n="This functionality is disabled after splitting a bipolar factor"></p>
         </div>
 
         <!-- Split Factor Modal  -->
-        <div class="iziModal" id="splitModal">
+        <div class="iziModal" id="downloadConfirmModal">
             <div>
-                <p data-i18n="Input the Number of the Factor to Split"></p>
-                <input type="number" class="u-pull-full input-inside" max="8" min="1" name="splitFactorInput">
+                <p data-i18n="If you have a large number of respondents, downloading all images may freeze your browser for a few minutes"></p>
             </div>
             <br>
             <div>
-                <button class="button-submit u-pull-right" data-i18n="Submit"></button>
+                <button id="cancelButton" class="button-cancel steelblueHover u-pull-left" data-i18n="cancel"></button>
             </div>
+            <div>
+                <button id="downloadAllImagesPngConfirmButton" class="button-error steelblueHover u-pull-right" data-i18n="Download All as PNG"></button>
+            </div>
+            <div>
+                <button id="downloadAllImagesConfirmButton" class="button-error steelblueHover u-pull-right" data-i18n="Download all as SVG"></button>
+            </div>
+
         </div>
 
         <!-- Delete Local Data Modal  -->
@@ -1410,7 +1334,7 @@
     <script type="text/javascript" src="lib/platform.js"></script>
 
     <!-- load custom JS -->
-    <script type="text/javascript" src="src/STATE.js"></script>
+    <!--<script type="text/javascript" src="src/STATE.js"></script>
     <script type="text/javascript" src="src/translations.js"></script>
     <script type="text/javascript" src="src/PASTE.js"></script>
     <script type="text/javascript" src="src/UTIL.js"></script>
@@ -1421,7 +1345,24 @@
     <script type="text/javascript" src="src/PRELIMOUT.js"></script>
     <script type="text/javascript" src="src/FIREBASE.js"></script>
     <script type="text/javascript" src="src/VIEW.js"></script>
-    <script type="text/javascript" src="src/CONTROLERS.js"></script>
+    <script type="text/javascript" src="src/CONTROLERS.js"></script>-->
+
+
+    <!-- load custom JS -->
+    <script type="text/javascript" src="dist/STATE.min.js"></script>
+    <script type="text/javascript" src="src/translations.js"></script>
+    <script type="text/javascript" src="dist/PASTE.min.js"></script>
+    <script type="text/javascript" src="dist/UTIL.min.js"></script>
+    <script type="text/javascript" src="dist/EXCEL.min.js"></script>
+    <script type="text/javascript" src="dist/INPUT.min.js"></script>
+    <script type="text/javascript" src="dist/DEMO.min.js"></script>
+    <script type="text/javascript" src="dist/OUTPUT.min.js"></script>
+    <script type="text/javascript" src="dist/PRELIMOUT.min.js"></script>
+    <script type="text/javascript" src="dist/FIREBASE.min.js"></script>
+    <script type="text/javascript" src="dist/VIEW.min.js"></script>
+    <script type="text/javascript" src="dist/CONTROLERS.min.js"></script>
+
+
 
     <script>
         (function (i, s, o, g, r, a, m) {

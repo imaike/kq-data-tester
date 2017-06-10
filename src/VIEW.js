@@ -33,7 +33,7 @@
     $(function () {
         setTimeout(function () {
             $("#heroSection")[0].click();
-        }, 300);
+        }, 100);
     });
 
 
@@ -461,72 +461,6 @@
     });
 
 
-    VIEW.showDisabledFunctionsAfterSplitModal = function () {
-        var language = QAV.getState("language");
-        var title = resources[language].translation.Warning;
-
-        $('#functionDisabledModal').iziModal({
-            title: title,
-            subtitle: '',
-            headerColor: '#ffff00', // '#88A0B9',
-            theme: 'light', // light
-            attached: '', // bottom, top
-            width: '80%',
-            padding: 20,
-            radius: 3,
-        });
-        $("#functionDisabledModal").iziModal('open');
-    };
-
-    VIEW.showNoSortsFlaggedOnFactorModal = function () {
-        var language = QAV.getState("language");
-        var title = resources[language].translation.Error;
-        $('#noFactorLoadingModal').iziModal({
-            title: title,
-            headerColor: '#e50000', // '#88A0B9',
-            width: '80%',
-            padding: 20,
-            radius: 3,
-        });
-        $("#noFactorLoadingModal").iziModal('open');
-    };
-
-    VIEW.showSortFlaggedOnMultipleFactorsModal = function () {
-        var language = QAV.getState("language");
-        var title = resources[language].translation.Error;
-        $('#sortLoadingMultipleFactorsModal').iziModal({
-            title: title,
-            subtitle: '',
-            headerColor: '#e50000', // '#88A0B9',
-            theme: '', // light
-            attached: '', // bottom, top
-            width: '80%',
-            padding: 20,
-            radius: 3,
-        });
-        $("#sortLoadingMultipleFactorsModal").iziModal('open');
-    };
-
-    VIEW.showInvertModal = function () {
-        var language = QAV.getState("language");
-        var title = resources[language].translation["Select Factor to Invert"];
-
-        $('#invertModal').iziModal({
-            title: title,
-            subtitle: '',
-            headerColor: '#6d7d8d', // '#88A0B9',
-            width: '80%',
-            bodyOverflow: true,
-            closeOnEscape: true,
-            overlay: true,
-            timeout: false, // or false
-            timeoutProgressbar: false,
-            pauseOnHover: false,
-            timeoutProgressbarColor: 'rgba(255,255,255,0.5)',
-        });
-        $('#invertModal').iziModal('open');
-    };
-
     VIEW.showlocalDataDeleteSuccessModal = function () {
         var language = QAV.getState("language");
         var title = resources[language].translation["Permanently delete all locally-stored data"];
@@ -559,30 +493,18 @@
         $('#deleteLocalDataModal').iziModal('open');
     };
 
-    VIEW.showSplitBipolarFactorModal = function () {
+
+    VIEW.showDownloadAllImagesConfirmModal = function () {
         var language = QAV.getState("language");
-        var title = resources[language].translation["Split Bipolar Factor"];
-        $('#splitModal').iziModal({
+        var title = resources[language].translation["Confirm Download"];
+        $('#downloadConfirmModal').iziModal({
             title: title,
             subtitle: '',
-            headerColor: '#6d7d8d', // '#88A0B9',
-            width: '80%',
             padding: 20,
-        });
-        $('#splitModal').iziModal('open');
-    };
-
-    VIEW.showRotationChartOptionsModal = function () {
-        var language = QAV.getState("language");
-        var title = resources[language].translation["Rotation Chart Options"];
-        $('#rotationChartOptionsModal').iziModal({
-            title: title,
-            headerColor: '#6d7d8d', // '#88A0B9',
+            headerColor: '#88A0B9',
             width: '80%',
-            padding: 20,
-            radius: 3,
         });
-        $("#rotationChartOptionsModal").iziModal('open');
+        $('#downloadConfirmModal').iziModal('open');
     };
 
     VIEW.showGenericErrorModal = function () {

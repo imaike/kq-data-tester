@@ -802,19 +802,28 @@
     (function () {
         $("#updateDisplayButton").on('click', function () {
             VIEW.clearPreviousTables();
-            PRELIMOUT.drawSynSortTrianglesForOutput();
+            $("#correlationSpinnerText").css('visibility', 'visible');
+            setTimeout(function () {
+                PRELIMOUT.drawSynSortTrianglesForOutput();
+                $("#correlationSpinnerText").css('visibility', 'hidden');
+            }, 50);
+
         });
     })();
-
 
     (function () {
         $("#downloadAllImagesButton").on('click', function () {
-            console.log("called");
-            PRELIMOUT.downloadAllImages();
+            console.log("clicked");
+            VIEW.showDownloadAllImagesConfirmModal();
         });
     })();
 
-
+    (function () {
+        $("#downloadAllImagesButton").on('click', function () {
+            console.log("clicked");
+            VIEW.showDownloadAllImagesConfirmModal();
+        });
+    })();
 
     //
     // Visualization Control Panel On-change event listeners
@@ -994,5 +1003,24 @@
     })();
 
 
+    (function () {
+        $("#downloadConfirmModal").on('click', '#downloadAllImagesConfirmButton', function () {
+            $("#downloadConfirmModal").iziModal('close');
+            PRELIMOUT.downloadAllImages();
+        });
+    })();
+
+    (function () {
+        $("#downloadConfirmModal").on('click', '#downloadAllImagesPngConfirmButton', function () {
+            $("#downloadConfirmModal").iziModal('close');
+            PRELIMOUT.downloadAllPngImages();
+        });
+    })();
+
+    (function () {
+        $('#downloadConfirmModal').on("click", '#cancelButton', function () {
+            $('#downloadConfirmModal').iziModal('close');
+        });
+    })();
 
 }(window.CONTROLERS = window.CONTROLERS || {}, QAV));

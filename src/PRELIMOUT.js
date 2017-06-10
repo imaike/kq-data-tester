@@ -95,7 +95,6 @@
             }
         }
         // QAV.setState("outputForDataViz", outputForDataViz);
-
         PRELIMOUT.drawSynSortTrianglesForOutput(outputForDataViz, userSelectedFactors);
     };
     /*
@@ -382,7 +381,7 @@
                 var svg = d3
                     .select("#" + factorVizDivName)
                     .append("svg")
-                    .attr('width', (containerWidth + 5))
+                    .attr('width', (containerWidth + 10))
                     .attr('height', svgHeight)
                     .attr('id', idName)
                     .attr('class', "factorViz");
@@ -510,11 +509,10 @@
                     .text(newText);
 
                 var downloadText = resources[language].translation.downloadImage;
-                $("#" + factorVizDivName)
-                    .append('<input class="svgDownloadButton blackHover" name="downloadButton" id="' + originalRespondentNames[z] + 'Image"   type="button" value="' + originalRespondentNames[z] + downloadText + '" />');
+                var $thisSvg = $("#" + factorVizDivName);
+                $thisSvg.append('<input class="svgDownloadButton blackHover" name="downloadButton" id="' + originalRespondentNames[z] + 'Image"   type="button" value="' + originalRespondentNames[z] + downloadText + '" />');
+                $thisSvg.append('<input class="pngDownloadButton blackHover" name="downloadPngButton" id="' + originalRespondentNames[z] + 'PngImage"   type="button" value="' + originalRespondentNames[z] + ' - Download image as PNG' + '" />');
             } // end z loop to add visualizations
-
-
 
 
             $('.svgDownloadButton')
@@ -559,6 +557,53 @@
                     d3_save_svg.save(d3.select('#' + svgId)
                         .node(), config);
                 });
+
+
+
+            $('.pngDownloadButton')
+                .on('mousedown', function (event) {
+                    var nameConfig;
+                    var vizConfig = QAV.getState("vizConfig") || {};
+                    var shouldAddName = vizConfig.shouldAddCustomName;
+                    var svgId = $(this)
+                        .parent()
+                        .find("svg")
+                        .attr('id');
+                    var arrayIndexNumber = (svgId.slice(-3) - 1);
+                    var factorName = originalRespondentNames[arrayIndexNumber];
+                    var cleanFactorName = factorName.replace(/\s+/g, '');
+                    var date = UTIL.currentDate1();
+                    var time = UTIL.currentTime1();
+                    var dateTime = date + "_" + time;
+                    var projectName = QAV.getState("qavProjectName");
+                    var customName = vizConfig.customName;
+                    if (shouldAddName === true) {
+                        if (vizConfig.customNameLocation === "prepend") {
+                            nameConfig = customName + "_" + projectName + "_" + cleanFactorName;
+                        } else if (vizConfig.customNameLocation === "append") {
+                            nameConfig = projectName + "_" + cleanFactorName + "_" + customName;
+                        } else if (vizConfig.customNameLocation === "replace") {
+                            nameConfig = customName;
+                        } else {
+                            nameConfig = projectName + "_" + cleanFactorName;
+                        }
+                    } else {
+                        nameConfig = projectName + "_" + cleanFactorName;
+                    }
+
+                    var svgString = getSVGString(d3.select('#' + svgId)
+                        .node());
+                    var thisSvgCharacteristics = d3.select('#' + svgId);
+                    var width = parseInt(thisSvgCharacteristics.style("width"), 10) + 2;
+                    var height = parseInt(thisSvgCharacteristics.style("height"), 10);
+                    svgString2Image(svgString, 2 * width, 2 * height, 'png', save); // passes Blob and filesize String to the callback
+                    var filenamePng = nameConfig + '.png';
+
+                    function save(dataBlob, filesize) {
+                        saveAs(dataBlob, filenamePng); // FileSaver.js function
+                    }
+                });
+
         } catch (err) {
             console.log(err);
             var errorPanel = $("#genericErrorModal .errorPanel");
@@ -587,7 +632,38 @@
         }
     };
 
+    PRELIMOUT.downloadAllPngImages = function () {
+        try {
+            var originalRespondentNames = QAV.getState("qavRespondentNames");
+            var i = 0;
+            setInterval(function () {
+                if (i < originalRespondentNames.length) {
+                    var selector = "#" + originalRespondentNames[i] + "PngImage";
+                    PRELIMOUT.downloadPngImage(selector);
+                    i++;
+                }
+            }, 2000);
 
+
+
+            // for (var i = 0; i < originalRespondentNames.length; i++) {
+            //     var selector = "#" + originalRespondentNames[i] + "PngImage";
+            //     setTimeout(function () {
+            //         PRELIMOUT.downloadPngImage(selector);
+            //     }, 2000);
+
+        } catch (err) {
+            var errorPanel = $("#genericErrorModal .errorPanel");
+            errorPanel.empty();
+            errorPanel.append("<p>Q-sorts must be displayed before download</p><br>");
+            VIEW.showGenericErrorModal();
+        }
+    };
+
+    PRELIMOUT.downloadPngImage = function (selector) {
+        console.log("triggered");
+        $(selector).trigger("mousedown");
+    };
 
     PRELIMOUT.convertSortsTextToNumbers = function (sortsTextFromDb, originalSortSize) {
         var originalRespondentNames = QAV.getState("qavRespondentNames");
@@ -627,6 +703,97 @@
         return sortsAsNumbers;
     };
 
+    // getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
+    function getSVGString(svgNode) {
+        svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+        var cssStyleText = getCSSStyles(svgNode);
+        appendCSS(cssStyleText, svgNode);
+
+        var serializer = new XMLSerializer();
+        var svgString = serializer.serializeToString(svgNode);
+        svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+        svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+
+        return svgString;
+
+        function getCSSStyles(parentElement) {
+            var selectorTextArr = [];
+
+            // Add Parent element Id and Classes to the list
+            selectorTextArr.push('#' + parentElement.id);
+            for (var c = 0; c < parentElement.classList.length; c++)
+                if (!contains('.' + parentElement.classList[c], selectorTextArr))
+                    selectorTextArr.push('.' + parentElement.classList[c]);
+
+            // Add Children element Ids and Classes to the list
+            var nodes = parentElement.getElementsByTagName("*");
+            for (var i = 0; i < nodes.length; i++) {
+                var id = nodes[i].id;
+                if (!contains('#' + id, selectorTextArr))
+                    selectorTextArr.push('#' + id);
+
+                var classes = nodes[i].classList;
+                for (var c = 0; c < classes.length; c++)
+                    if (!contains('.' + classes[c], selectorTextArr))
+                        selectorTextArr.push('.' + classes[c]);
+            }
+
+            // Extract CSS Rules
+            var extractedCSSText = "";
+            for (var i = 0; i < document.styleSheets.length; i++) {
+                var s = document.styleSheets[i];
+
+                try {
+                    if (!s.cssRules) continue;
+                } catch (e) {
+                    if (e.name !== 'SecurityError') throw e; // for Firefox
+                    continue;
+                }
+
+                var cssRules = s.cssRules;
+                for (var r = 0; r < cssRules.length; r++) {
+                    if (contains(cssRules[r].selectorText, selectorTextArr))
+                        extractedCSSText += cssRules[r].cssText;
+                }
+            }
+            return extractedCSSText;
+
+            function contains(str, arr) {
+                return arr.indexOf(str) === -1 ? false : true;
+            }
+        }
+
+        function appendCSS(cssText, element) {
+            var styleElement = document.createElement("style");
+            styleElement.setAttribute("type", "text/css");
+            styleElement.innerHTML = cssText;
+            var refNode = element.hasChildNodes() ? element.children[0] : null;
+            element.insertBefore(styleElement, refNode);
+        }
+    }
+
+
+    function svgString2Image(svgString, width, height, format, callback) {
+        var format = format ? format : 'png';
+        var imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+
+        canvas.width = width;
+        canvas.height = height;
+
+        var image = new Image();
+        image.onload = function () {
+            context.clearRect(0, 0, width, height);
+            context.drawImage(image, 0, 0, width, height);
+
+            canvas.toBlob(function (blob) {
+                var filesize = Math.round(blob.length / 1024) + ' KB';
+                if (callback) callback(blob, filesize);
+            });
+        };
+        image.src = imgsrc;
+    }
 
 
 

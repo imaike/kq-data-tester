@@ -257,7 +257,8 @@
             }
 
             var originalDataSorts = QAV.getState("qavRespondentSortsFromDbStored");
-            var originalRespondentNames = QAV.getState("qavRespondentNames");
+            var originalRespondentNames2 = QAV.getState("qavRespondentNames");
+            var originalRespondentNames = UTIL.checkUniqueName(originalRespondentNames2);
             var originalStatements = QAV.getState("qavCurrentStatements");
             var originalSortSize = QAV.getState("qavOriginalSortSize");
 
@@ -268,6 +269,8 @@
                 var tempArray77 = [];
                 for (var xx = 0, xxLen = sortsAsNumbers[yy].length; xx < xxLen; xx++) {
                     var tempObject77 = {};
+                    originalRespondentNames[yy] = originalRespondentNames[yy].trim();
+                    originalRespondentNames[yy] = originalRespondentNames[yy].replace(/ /g, "_");
                     tempObject77.factor = originalRespondentNames[yy];
                     tempObject77.sigVisualization = "";
                     tempObject77.sortStatement = originalStatements[xx];

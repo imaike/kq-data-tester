@@ -280,7 +280,7 @@
                 }
                 outputForDataViz.push(tempArray77);
             }
-
+            QAV.setState("qavRespondentNames", originalRespondentNames);
 
             if (addEmptyQsort === true) {
                 var emptyQsortArray = [];
